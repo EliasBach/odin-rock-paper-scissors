@@ -1,5 +1,5 @@
 // GLOBAL VARIABLES
-const num_rounds = 2;
+const num_rounds = 1;
 
 // SCRIPT
 playGame(num_rounds)
@@ -61,3 +61,11 @@ function playGame(num_rounds) {
     console.log(`Final score: You - ${humanScore}, CPU - ${computerScore}`)
     console.log("Game is finished. Refresh to try again.")
 }
+
+// BUTTON EVENT LISTENERS
+const play_rock = document.querySelector("#rock");
+play_rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
+const play_paper = document.querySelector("#paper");
+play_paper.addEventListener("click", () => playRound("paper", getComputerChoice()));
+const play_scissors = document.querySelector("#scissors");
+play_scissors.addEventListener("click", () => playRound("scissors", getComputerChoice()));
