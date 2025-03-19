@@ -1,11 +1,17 @@
 // GLOBAL VARIABLES
-const num_rounds = 0;
+const win_score = 3;
 let humanScore = 0
 let computerScore = 0
 
-// SCRIPT
-// console.log(`Final score: You - ${humanScore}, CPU - ${computerScore}`)
-//console.log("Game is finished. Refresh to try again.")
+// BUTTON EVENT LISTENERS
+// "() => " is needed This wraps the function call inside another function, 
+// so it only runs when the button is clicked.
+const play_rock = document.querySelector("#rock");
+play_rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
+const play_paper = document.querySelector("#paper");
+play_paper.addEventListener("click", () => playRound("paper", getComputerChoice()));
+const play_scissors = document.querySelector("#scissors");
+play_scissors.addEventListener("click", () => playRound("scissors", getComputerChoice()));
 
 // FUNCTIONS
 function getComputerChoice() {
@@ -23,32 +29,30 @@ function playRound(humanSelection, computerSelection) {
     const log_box = document.querySelector(".log_box")
     const text = document.createElement("p")
     
-    text.textContent = `You played ${humanSelection}. Comuputer played ${computerSelection}.`
+    text.textContent = `You played ${humanSelection}. CPU played ${computerSelection}. `
     if (humanSelection == computerSelection) {
-        text.textContent += "\nIt's a draw...\n"
+        text.textContent += "It's a draw..."
         
     } else if (((humanSelection == "rock") && (computerSelection == "scissors")) 
         || ((humanSelection == "paper") && (computerSelection == "rock"))
         || ((humanSelection == "scissors") && (computerSelection == "paper"))) {
-        text.textContent += "\nYou win!\n"
+        text.textContent += "You win!"
         humanScore++
 
     } else if (((humanSelection == "paper") && (computerSelection == "scissors")) 
         || ((humanSelection == "scissors") && (computerSelection == "rock"))
         || ((humanSelection == "rock") && (computerSelection == "paper"))) {
-        text.textContent += "\nCPU wins.\n"
+        text.textContent += "CPU wins."
         computerScore++   
     }
 
     log_box.append(text)
-}
 
-// BUTTON EVENT LISTENERS
-// "() => " is needed This wraps the function call inside another function, 
-// so it only runs when the button is clicked.
-const play_rock = document.querySelector("#rock");
-play_rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
-const play_paper = document.querySelector("#paper");
-play_paper.addEventListener("click", () => playRound("paper", getComputerChoice()));
-const play_scissors = document.querySelector("#scissors");
-play_scissors.addEventListener("click", () => playRound("scissors", getComputerChoice()));
+    //check the score to see if the game should be terminated
+    if (humanScore == win_score || computerScore == win_score) {
+        const finish_text = document.createElement("p")
+        finish_text.textContent = `Final score: You - ${humanScore}, CPU - ${computerScore}`
+        finish_text.textContent += " Game is finished. Refresh to try again."
+        log_box.append(finish_text)
+    }
+}
