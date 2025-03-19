@@ -2,6 +2,7 @@
 const win_score = 3;
 let humanScore = 0
 let computerScore = 0
+let reset_flag = false
 
 // BUTTON EVENT LISTENERS
 // "() => " is needed This wraps the function call inside another function, 
@@ -26,6 +27,10 @@ function getComputerChoice() {
 }
 
 function playRound(humanSelection, computerSelection) {
+    if (reset_flag) {
+        resetGame()
+        reset_flag=false
+    }
     const log_box = document.querySelector(".log_box")
     const text = document.createElement("p")
     
@@ -46,13 +51,20 @@ function playRound(humanSelection, computerSelection) {
         computerScore++   
     }
 
-    log_box.append(text)
+    log_box.appendChild(text)
 
     //check the score to see if the game should be terminated
     if (humanScore == win_score || computerScore == win_score) {
         const finish_text = document.createElement("p")
         finish_text.textContent = `Final score: You - ${humanScore}, CPU - ${computerScore}`
-        finish_text.textContent += " Game is finished. Refresh to try again."
-        log_box.append(finish_text)
+        log_box.appendChild(finish_text)
+        humanScore = 0
+        computerScore = 0
+        reset_flag=true
     }
+
+    function resetGame () {
+        const log_box = document.querySelector(".log_box")
+        log_box.textContent = ""
+    };
 }
