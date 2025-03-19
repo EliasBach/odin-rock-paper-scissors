@@ -1,5 +1,5 @@
 // GLOBAL VARIABLES
-const num_rounds = 5;
+const num_rounds = 2;
 
 // SCRIPT
 playGame(num_rounds)
