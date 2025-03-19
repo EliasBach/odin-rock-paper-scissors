@@ -1,5 +1,5 @@
 // GLOBAL VARIABLES
-const num_rounds = 1;
+const num_rounds = 0;
 
 // SCRIPT
 playGame(num_rounds)
@@ -22,26 +22,33 @@ function getHumanChoice() {
 }
 
 function playRound(humanSelection, computerSelection) {
-    console.log(`You played ${humanSelection}. Comuputer played ${computerSelection}.`)
+    const log_box = document.querySelector(".log_box")
+    log_box.style.whiteSpace = "pre-wrap";
+    const text = document.createElement("p")
+    
+    text.textContent = `You played ${humanSelection}. Comuputer played ${computerSelection}.`
     if (humanSelection == computerSelection) {
-        console.log("It's a draw.");
+        text.textContent += "\nIt's a draw...\n"
+        log_box.append(text)
         return "DRAW"
 
     } else if (((humanSelection == "rock") && (computerSelection == "scissors")) 
         || ((humanSelection == "paper") && (computerSelection == "rock"))
         || ((humanSelection == "scissors") && (computerSelection == "paper"))) {
-        console.log("You win!");
+        text.textContent += "\nYou win!\n"
+        log_box.append(text)
         return "WIN"
 
     } else if (((humanSelection == "paper") && (computerSelection == "scissors")) 
         || ((humanSelection == "scissors") && (computerSelection == "rock"))
         || ((humanSelection == "rock") && (computerSelection == "paper"))) {
-        console.log("You lose...");
-        return "LOSE";
-
+        text.textContent += "\nCPU wins.\n"
+        log_box.append(text)
+        return "LOSE"
     } else {
-        console.log("Oops! Something must've gone wrong, potentially a typo. Refresh to start over.");
-    }        
+        text.textContent += "\nOops! Something must've gone wrong, potentially a typo. Refresh to start over.\n"
+        log_box.append(text)
+    }  
 }
 
 function playGame(num_rounds) {
@@ -63,6 +70,8 @@ function playGame(num_rounds) {
 }
 
 // BUTTON EVENT LISTENERS
+// "() => " is needed This wraps the function call inside another function, 
+// so it only runs when the button is clicked.
 const play_rock = document.querySelector("#rock");
 play_rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
 const play_paper = document.querySelector("#paper");
