@@ -1,8 +1,11 @@
 // GLOBAL VARIABLES
 const num_rounds = 0;
+let humanScore = 0
+let computerScore = 0
 
 // SCRIPT
-playGame(num_rounds)
+// console.log(`Final score: You - ${humanScore}, CPU - ${computerScore}`)
+//console.log("Game is finished. Refresh to try again.")
 
 // FUNCTIONS
 function getComputerChoice() {
@@ -18,50 +21,26 @@ function getComputerChoice() {
 
 function playRound(humanSelection, computerSelection) {
     const log_box = document.querySelector(".log_box")
-    log_box.style.whiteSpace = "pre-wrap";
     const text = document.createElement("p")
     
     text.textContent = `You played ${humanSelection}. Comuputer played ${computerSelection}.`
     if (humanSelection == computerSelection) {
         text.textContent += "\nIt's a draw...\n"
-        log_box.append(text)
-        return "DRAW"
-
+        
     } else if (((humanSelection == "rock") && (computerSelection == "scissors")) 
         || ((humanSelection == "paper") && (computerSelection == "rock"))
         || ((humanSelection == "scissors") && (computerSelection == "paper"))) {
         text.textContent += "\nYou win!\n"
-        log_box.append(text)
-        return "WIN"
+        humanScore++
 
     } else if (((humanSelection == "paper") && (computerSelection == "scissors")) 
         || ((humanSelection == "scissors") && (computerSelection == "rock"))
         || ((humanSelection == "rock") && (computerSelection == "paper"))) {
         text.textContent += "\nCPU wins.\n"
-        log_box.append(text)
-        return "LOSE"
-    } else {
-        text.textContent += "\nOops! Something must've gone wrong, potentially a typo. Refresh to start over.\n"
-        log_box.append(text)
-    }  
-}
-
-function playGame(num_rounds) {
-    var humanScore = 0
-    var computerScore = 0
-    for (i=0 ; i<num_rounds ; i++) {
-        outcome = playRound(getHumanChoice(), getComputerChoice())
-
-        if (outcome == "WIN") {
-            humanScore++
-        }
-        else if (outcome == "LOSE") {
-            computerScore++
-        }
+        computerScore++   
     }
 
-    console.log(`Final score: You - ${humanScore}, CPU - ${computerScore}`)
-    console.log("Game is finished. Refresh to try again.")
+    log_box.append(text)
 }
 
 // BUTTON EVENT LISTENERS
