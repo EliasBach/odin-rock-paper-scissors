@@ -16,11 +16,6 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    var choice = prompt("Choose: rock / paper / scissors");
-    return choice.toLowerCase();
-}
-
 function playRound(humanSelection, computerSelection) {
     const log_box = document.querySelector(".log_box")
     log_box.style.whiteSpace = "pre-wrap";
